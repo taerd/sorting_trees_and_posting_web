@@ -79,16 +79,16 @@ void balance(group*& root){
     int rh = get_height(root->right);
     if (abs(lh-rh)>=2){
         if (rh>lh){
-            if (get_height(root->right->left)< get_height(root->right->right)){
-                small_left_rotate(root);
-            } else {
+            if (get_height(root->right->left)> get_height(root->right->right)){
                 big_left_rotate(root);
+            } else {
+                small_left_rotate(root);
             }
         } else {
-            if (get_height(root->left->right)< get_height(root->left->left)){
-                small_right_rotate(root);
-            } else {
+            if (get_height(root->left->right)> get_height(root->left->left)){
                 big_right_rotate(root);
+            } else {
+                small_right_rotate(root);
             }
         }
     }
@@ -97,7 +97,7 @@ int get_height(group* root){
     if (!root) return 0;
     int lh = (root->left) ? root->left->h : 0;
     int rh = (root->right) ? root->right->h : 0;
-    return 1 + ((lh>=rh) ? lh : rh);
+    return 1 + ((lh>rh) ? lh : rh);
 }
 void small_left_rotate(group*& root){
     if (!root) return;
@@ -138,16 +138,16 @@ void balance(tree*& root){
     int rh = get_height(root->right);
     if (abs(lh-rh)>=2){
         if (rh>lh){
-            if (get_height(root->right->left)< get_height(root->right->right)){
-                small_left_rotate(root);
-            } else {
+            if (get_height(root->right->left)> get_height(root->right->right)){
                 big_left_rotate(root);
+            } else {
+                small_left_rotate(root);
             }
         } else {
-            if (get_height(root->left->right)< get_height(root->left->left)){
-                small_right_rotate(root);
-            } else {
+            if (get_height(root->left->right)> get_height(root->left->left)){
                 big_right_rotate(root);
+            } else {
+                small_right_rotate(root);
             }
         }
     }

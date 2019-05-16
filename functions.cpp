@@ -7,6 +7,7 @@
 #include <iostream>
 #include "functions.h"
 #include "trees.h"
+#include <math.h>
 using namespace std;
 void get_form_data(char*&data){
     size_t buf_size = get_content_length()+1;
@@ -84,7 +85,7 @@ void sort(int t,group*&first){
     if(f.is_open()){
         student person;
         while(f.read((char*)&person,sizeof(student))){
-            cout<<person.group<<" "<<person.secondname<<" "<<person.name<<" "<<person.mark<<"<br> ";
+            //cout<<person.group<<" "<<person.secondname<<" "<<person.name<<" "<<person.mark<<"<br> ";
             add(first,person,t);
         }
         cout<<"<br><br>";
@@ -95,26 +96,34 @@ void sort(int t,group*&first){
 void create_queue(elem*& q,tree*first){
     if(!first) return;
     add(q,nullptr,first);
-    int cnt=(1<< first->h)-1;
+    int cnt=(1 << first->h)-1;
     elem*curr=q;
     elem*last=q;
     int curr_cnt=1;
     while(curr_cnt<cnt){
-        last=add(q,last,(curr->uzel)?curr->uzel->left:nullptr);
-        last=add(q,last,(curr->uzel)?curr->uzel->right:nullptr);
+        last=add(curr,last,(curr->uzel)?curr->uzel->left:nullptr);
+        last=add(curr,last,(curr->uzel)?curr->uzel->right:nullptr);
         curr=curr->next;
         curr_cnt+=2;
     }
 }
-
-elem* add(elem*& q,elem* qlast,tree* uzel){
-    elem*new_el=new elem;
-    new_el->uzel=uzel;
-    if(!q) {
-        q = new_el;
-        return q;
-    } else{
-        if(qlast) qlast->next=new_el;
+elem* add(elem*&head,elem* qlast,tree*root){
+    elem* new_el = new elem;
+    new_el->uzel = root;
+    if(!head){
+        head=new_el;
+        return head;
+    }else {
+        if (qlast) qlast->next=new_el;
         return new_el;
     }
+}
+void delete_queue(elem*& q){
+    auto* c = q;
+    while (c){
+        elem* old = c;
+        c = c->next;
+        delete old;
+    }
+    q = nullptr;
 }
