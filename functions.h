@@ -40,9 +40,15 @@ struct group{
     group*left=nullptr;
     group*right=nullptr;
 };
+struct elem{
+    elem* next = nullptr;
+    tree* uzel;
+};
 void get_form_data(char*&data);
 size_t get_content_length();
 void get_user_value(char*& out_value, const char* data, const char* key_name);
 void create_data_bin();
 void sort(int t,group*& root);
+void create_queue(elem*&q,tree*first);
+elem* add(elem*& q,elem*qlast,tree*uzel);
 #endif //SORTING_FUNCTIONS_H

@@ -91,3 +91,30 @@ void sort(int t,group*&first){
         f.close();
     }else cout<<"Cant open data(bin)";
 }
+
+void create_queue(elem*& q,tree*first){
+    if(!first) return;
+    add(q,nullptr,first);
+    int cnt=(1<< first->h)-1;
+    elem*curr=q;
+    elem*last=q;
+    int curr_cnt=1;
+    while(curr_cnt<cnt){
+        last=add(q,last,(curr->uzel)?curr->uzel->left:nullptr);
+        last=add(q,last,(curr->uzel)?curr->uzel->right:nullptr);
+        curr=curr->next;
+        curr_cnt+=2;
+    }
+}
+
+elem* add(elem*& q,elem* qlast,tree* uzel){
+    elem*new_el=new elem;
+    new_el->uzel=uzel;
+    if(!q) {
+        q = new_el;
+        return q;
+    } else{
+        if(qlast) qlast->next=new_el;
+        return new_el;
+    }
+}

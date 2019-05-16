@@ -15,11 +15,19 @@ void comment(){
           "</form>";
 }
 void show_tree(tree*first){
-    if(first){
-        show_tree(first->left);
-        show_tree(first->right);
-        cout<<first->secondname<<"   "<<first->name<<"  "<<first->mark<<"<br>";
+    if(!first) return;
+    int h=first->h;
+    int col=(1<<h)-1;//побайтовый сдвиг
+    elem* q=nullptr;
+    create_queue(q,first);
+    elem*qfirst=q;
+    int lvl=0;
+    while(q){
+        lvl++;
+        int cells=0;
+        int empt_c=(1<<(h-lvl))-1;
     }
+
 }
 void show_tree_in_tree(group*&first){
     if (first){
